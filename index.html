@@ -67,22 +67,22 @@ function getCat(speed) {
   return "Distance Drivers";
 }
 
-/* ─── SVG Flight Path ─── */
 function FlightPath({ turn, fade, color }) {
   const t = parseFloat(turn)||0, f = parseFloat(fade)||0;
-  const sy = 26 - t*4;
-  const pk = Math.max(4, Math.min(36, sy + t*5));
-  const ey = Math.max(4, Math.min(36, pk - f*5));
+  const sy = 40 - t * 3;
+  const midX = 190, midY = Math.max(8, Math.min(46, sy + t * -4));
+  const sCtrlX = 240, sCtrlY = midY + (midY - sy) * 0.3;
+  const endX = 265, endY = Math.max(8, Math.min(46, sCtrlY - f * 7));
   return (
-    <svg viewBox="0 0 200 40" style={{width:"100%",height:36,display:"block"}}>
-      <line x1="10" y1="38" x2="10" y2="3" stroke="#333" strokeWidth=".4" strokeDasharray="2"/>
-      <text x="3" y="7" fill="#555" fontSize="5">L</text>
-      <text x="3" y="39" fill="#555" fontSize="5">R</text>
+    <svg viewBox="0 0 300 50" style={{width:"100%",height:46,display:"block"}}>
+      <line x1="18" y1="46" x2="18" y2="6" stroke="#333" strokeWidth=".5" strokeDasharray="2"/>
+      <text x="9" y="7" fill="#555" fontSize="6">L</text>
+      <text x="9" y="50" fill="#555" fontSize="6">R</text>
       <path
-        d={`M16,${sy} C55,${sy+(pk-sy)*.7} 125,${pk+(ey-pk)*.3} 176,${ey}`}
-        stroke={color} strokeWidth="2" strokeLinecap="round" fill="none"
+        d={`M28,${sy} C${80},${sy + (midY-sy)*0.3} ${140},${sy + (midY-sy)*0.7} ${midX},${midY} S${sCtrlX},${sCtrlY} ${endX},${endY}`}
+        stroke={color} strokeWidth="2.5" strokeLinecap="round" fill="none"
       />
-      <circle cx="176" cy={ey} r="2" fill={color}/>
+      <circle cx={endX} cy={endY} r="2.5" fill={color}/>
     </svg>
   );
 }
